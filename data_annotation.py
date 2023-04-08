@@ -35,7 +35,6 @@ def annotate_images(input_parquet: str, output_parquet: str):
     print(f"Image Annotation started!")
 
     for path in tqdm.tqdm(paths):
-
         try:
             image = Image.open(path).convert("RGB")
             output = classifier(image)
@@ -47,7 +46,6 @@ def annotate_images(input_parquet: str, output_parquet: str):
         score_sum = sum([o["score"] for o in output])
         df["LABEL"][i] = str(not (score_sum <= 0.3))
         df["SCORES_SUM"][i] = score_sum
-
         i += 1
 
         if i % 1000 == 0:
