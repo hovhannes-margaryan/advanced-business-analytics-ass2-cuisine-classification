@@ -4,10 +4,6 @@ from PIL import Image
 from transformers import pipeline
 from argparse import ArgumentParser
 
-parser = ArgumentParser()
-parser.add_argument("--input_parquet", default="dataset_paths.parquet", help="path to input parquet", type=str)
-parser.add_argument("--output_parquet", default="dataset_paths.parquet", help="path to output parquet", type=str)
-
 
 def annotate_images(input_parquet: str, output_parquet: str):
     """
@@ -55,6 +51,10 @@ def annotate_images(input_parquet: str, output_parquet: str):
     print(f"Output parquet saved to {output_parquet}.")
     print(f"Number of images skipped: {number_of_skipped}.")
 
+
+parser = ArgumentParser()
+parser.add_argument("--input_parquet", default="dataset_paths.parquet", help="path to input parquet", type=str)
+parser.add_argument("--output_parquet", default="dataset_paths.parquet", help="path to output parquet", type=str)
 
 if __name__ == "__main__":
     args = parser.parse_args()
