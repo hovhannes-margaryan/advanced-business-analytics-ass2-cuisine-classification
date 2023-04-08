@@ -16,9 +16,9 @@ def annotate_images(input_parquet: str, output_parquet: str):
     :return:
     The input parquet should contain a column LOCAL_PATH (local path of the image).
     Saves output parquet with columns
-        LOCAL_PATH: local path of the image.
-        LABEL: 1 if the image is food 0 otherwise.
-        SCORES_SUM: probability of an image being food image.
+            LOCAL_PATH: local path of the image.
+            LABEL: 1 if the image is food 0 otherwise.
+            SCORES_SUM: probability of an image being food image.
     """
     df = pd.read_parquet(args.input_parquet)
     paths = list(df["LOCAL_PATH"])
