@@ -16,7 +16,7 @@ parser.add_argument("--train_parquet_path",  help="path to the train parquet", t
 parser.add_argument("--validation_parquet_path",  help="path to the validation parquet", type=str)
 parser.add_argument("--batch_size", default=128,  help="training and validation batch size", type=int)
 parser.add_argument("--device", default="cuda",  help="training and validation batch size", type=str)
-parser.add_argument("--image_size", default=512, help="size of the image for training", type=int)
+parser.add_argument("--image_size", default=224, help="size of the image for training", type=int)
 parser.add_argument("--max_epochs", default=500, help="maximum number of epochs to train", type=int)
 parser.add_argument("--model_checkpoint_path", help="path to save the trained model checkpoint", type=str)
 parser.add_argument("--learning_rate", help="learning rate", type=float)
@@ -59,8 +59,8 @@ if __name__ == "__main__":
     if os.path.isfile(args.pretrained_model_path):
         model = GeneralMLightningModule.load_from_checkpoint(args.pretrained_model_path)
     else:
-        model = GeneralMLightningModule(VisionTransformer, {"num_classes": args.num_classes,
-                                                            "learning_rate": args.learning_rate})
+        model = GeneralMLightningModule(VisionTransformer, args.learning_rate,
+                                        {"num_classes": args.num_classes})
 
     trainer.fit(model, train_dataloader, validation_dataloader)
 

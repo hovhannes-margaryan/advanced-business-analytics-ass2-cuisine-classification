@@ -14,6 +14,6 @@ class CustomDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         local_url = self.df.iloc[idx]["LOCAL_PATH"]
-        target = self.df.iloc[idx]["TARGET"]
+        target = torch.tensor(int(self.df.iloc[idx]["TARGET"]), dtype=torch.int64)
         image = self.transforms(Image.open(local_url).convert("RGB"))
         return image, target

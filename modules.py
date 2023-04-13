@@ -4,10 +4,11 @@ import torch.nn.functional as F
 
 
 class GeneralMLightningModule(pl.LightningModule):
-    def __init__(self, general_model, model_kwargs):
+    def __init__(self, general_model, learning_rate, model_kwargs):
         super().__init__()
         self.save_hyperparameters()
         self.model = general_model(**model_kwargs)
+        self.hparams.lr=learning_rate
 
     def forward(self, x):
         return self.model(x)
@@ -22,7 +23,6 @@ class GeneralMLightningModule(pl.LightningModule):
         preds = self.model(imgs)
         loss = F.cross_entropy(preds, labels)
         acc = (preds.argmax(dim=-1) == labels).float().mean()
-
         self.log(f'{mode}_loss', loss)
         self.log(f'{mode}_acc', acc)
         return loss
