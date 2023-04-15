@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from argparse import ArgumentParser
 
@@ -86,7 +87,11 @@ parser = ArgumentParser()
 parser.add_argument("--input_json", default="dataset.json", help="path to dataset json", type=str)
 parser.add_argument("--input_parquet", default="dataset_paths.parquet", help="path to annotated parquet", type=str)
 parser.add_argument("--output_parquet", default="dataset_paths.parquet", help="path to output parquet", type=str)
+parser.add_argument("--train_parquet_path", default="train.parquet", help="path to train parquet", type=str)
+parser.add_argument("--validation_parquet_path", default="validation.parquet", help="path to validation parquet", type=str)
+parser.add_argument("--test_parquet_path", default="test.parquet", help="path to test parquet", type=str)
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    preprocess_dataset(args.input_json, args.input_parquet, args.output_parquet)
+    preprocess_dataset(args.input_json, args.input_parquet, args.output_parquet,
+                       args.train_parquet_path, args.validation_parquet_path, args.test_parquet_path)

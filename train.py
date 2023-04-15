@@ -39,7 +39,7 @@ if __name__ == "__main__":
                                                                      [0.24703223, 0.24348513, 0.26158784])])
 
     train_dataset = CustomDataset(args.train_parquet_path, train_transform)
-    validation_dataset = CustomDataset(args.validation_parquet_path, train_transform)
+    validation_dataset = CustomDataset(args.validation_parquet_path, validation_transform)
 
     train_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
                                   drop_last=True,  num_workers=4)

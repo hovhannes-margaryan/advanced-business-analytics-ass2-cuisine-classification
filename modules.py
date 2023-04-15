@@ -8,7 +8,7 @@ class GeneralMLightningModule(pl.LightningModule):
         super().__init__()
         self.save_hyperparameters()
         self.model = general_model(**model_kwargs)
-        self.hparams.lr=learning_rate
+        self.hparams.lr = learning_rate
 
     def forward(self, x):
         return self.model(x)
