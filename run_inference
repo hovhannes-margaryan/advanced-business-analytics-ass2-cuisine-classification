@@ -1,4 +1,4 @@
-python3 inference.py --pretrained_model_path="../models/exp1/lightning_logs/version_0/checkpoints/epoch=127-step=36224.ckpt" \
+python3 inference.py --pretrained_model_path="../models/exp1/lightning_logs/version_1/checkpoints/epoch=177-step=50374.ckpt" \
     --test_parquet_path="../validation.parquet" \
     --device="cuda" \
     --batch_size=128 \
