@@ -15,13 +15,22 @@ class GeneralMLightningModule(pl.LightningModule):
 
     def configure_optimizers(self):
         print(f"learning rate: self.hparams.lr")
-        optimizer = torch.optim.AdamW(self.parameters(), lr=self.hparams.lr)
+        # optimizer = torch.optim.AdamW(self.parameters(), lr=self.hparams.lr)
+        optimizer = torch.optim.SGD(self.parameters(), lr=self.hparams.lr, momentum=0.9)
         return [optimizer]
 
     def _calculate_loss(self, batch, mode="train"):
         imgs, labels = batch
         preds = self.model(imgs)
-        loss = F.cross_entropy(preds, labels)
+        weights = torch.tensor([0.29242, 0.70758]).to(self.device)
+
+        if mode == "train":
+            loss = F.cross_entropy(preds, labels,
+                                   weight=weights
+                                   )
+        else:
+            loss = F.cross_entropy(preds, labels)
+
         acc = (preds.argmax(dim=-1) == labels).float().mean()
         self.log(f'{mode}_loss', loss)
         self.log(f'{mode}_acc', acc)

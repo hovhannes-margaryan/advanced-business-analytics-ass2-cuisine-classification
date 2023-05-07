@@ -3,11 +3,12 @@ import torch
 import pytorch_lightning as pl
 from torchvision import transforms
 from argparse import ArgumentParser
-from models import VisionTransformer
+from models import VisionTransformer, ConvNext, AlexNetCustom, ResNet, VGG
 from torch.utils.data import DataLoader
-from CustomDataset import CustomDataset
+# from CustomDataset import CustomDataset
+from torchvision.datasets import ImageFolder
 from modules import GeneralMLightningModule
-from pytorch_lightning.callbacks import ModelCheckpoint
+from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 
 parser = ArgumentParser()
 parser.add_argument("--num_classes", default=20, help="number of classes", type=int)
@@ -41,8 +42,8 @@ if __name__ == "__main__":
         transforms.Normalize([0.49139968, 0.48215841, 0.44653091],
                              [0.24703223, 0.24348513, 0.26158784])])
 
-    train_dataset = CustomDataset(args.train_parquet_path, train_transform)
-    validation_dataset = CustomDataset(args.validation_parquet_path, validation_transform)
+    train_dataset = ImageFolder(args.train_parquet_path, train_transform)
+    validation_dataset = ImageFolder(args.validation_parquet_path, validation_transform)
 
     train_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
                                   drop_last=True, num_workers=4)
@@ -54,7 +55,9 @@ if __name__ == "__main__":
                          devices=1,
                          max_epochs=args.max_epochs,
                          callbacks=[ModelCheckpoint(save_weights_only=True,
-                                                    mode="max", monitor="val_acc")])
+                                                    mode="max", monitor="val_acc"),
+                                    EarlyStopping(monitor='val_loss', patience=3,
+                                                  strict=False, verbose=False, mode='min')])
 
     trainer.logger._log_graph = False
     trainer.logger._default_hp_metric = None

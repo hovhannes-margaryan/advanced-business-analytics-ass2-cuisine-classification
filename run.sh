@@ -1,10 +1,10 @@
-python3 train.py --num_classes=20 \
+python3 train.py --num_classes=2 \
  --pretrained_model_path="" \
- --train_parquet_path="../train.parquet" \
- --validation_parquet_path="../validation.parquet" \
+ --train_parquet_path="/home/hovhannes/Downloads/cuisine_dataset_1/train" \
+ --validation_parquet_path="/home/hovhannes/Downloads/cuisine_dataset_1/validation" \
  --batch_size=128 \
  --device="cuda" \
  --image_size=224 \
  --max_epochs=178 \
- --model_checkpoint_path="../models/exp1" \
- --learning_rate=3e-4
+ --model_checkpoint_path="../models/exp12" \
+ --learning_rate=0.001
