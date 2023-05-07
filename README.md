@@ -12,4 +12,4 @@ Vision Transformer (ViT) and ConvNeXT.
 ViT is chosen as a final model based on the
 performance of the models in terms of the validation 
 \accuracy. Moreover, further experiments are conducted
-to improve the performance of ViT.
+to improve the performance of ViT. Finally, classification metrices are computed for the chosen model as a final assessment. The final chosen model achieves an accuracy of 92.91% on validation and 92.46% on test sets.
