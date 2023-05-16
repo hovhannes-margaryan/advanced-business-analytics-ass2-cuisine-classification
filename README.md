@@ -26,7 +26,7 @@ as Alexnet, VGG, vision transformers as backbones.
 Vision transformers trained with 
 Weighted Cross-Entropy and Mini Batch Gradient 
 Descent with learning rate of 0.001 a
-chieved the best performance on the validation set
+achieved the best performance on the validation set
 (92.91% accuracy). 
 Its performance was further assessed on the test 
 set using precision, recall and AUC. 
